@@ -1,8 +1,13 @@
 import { useRef, useEffect, useState } from "react";
+import type { ImgHTMLAttributes } from "react";
 
-type Props = { image: string };
+type LazyImagesProps = { image: string};
 
-export const RandomFox = ({ image }: Props): JSX.Element => {
+type ImageNative = ImgHTMLAttributes<HTMLImageElement>;
+
+type Props = LazyImagesProps & ImageNative
+
+export const LazyImage = ({ image, ...imgProps }: Props): JSX.Element => {
     const node = useRef<HTMLImageElement>(null);
     const [src, setSrc] = useState(
         "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
@@ -36,6 +41,7 @@ export const RandomFox = ({ image }: Props): JSX.Element => {
                 height="auto"
                 src={src}
                 className="rounded bg-gray-200"
+                {...imgProps}
             />
         </div>
     );
@@ -50,7 +56,7 @@ export const RandomFox = ({ image }: Props): JSX.Element => {
 // Definir los props en react consiste en definir el 
 // tipo de dato que va a recibir el componente dentro de un objeto 
 // que se le pasa como parametro a la funcion que define el componente
-// En este caso el componente RandomFox recibe un objeto de tipo Props
+// En este caso el componente LazyImage recibe un objeto de tipo Props
 
 // Tipos para referencias y observadores
 // Cuando trabajamos con React y TypeScript, puede que nos encontremos con problemas a la hora de utilizar referencias y observadores en nuestros componentes. Esto se debe a que, dependiendo del objeto HTML con el que estemos trabajando, necesitamos tener en cuenta ciertos conceptos para que nuestro código sea válido.
