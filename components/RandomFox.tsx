@@ -7,9 +7,9 @@ type ImageNative = ImgHTMLAttributes<HTMLImageElement>;
 
 type Props = LazyImagesProps & ImageNative
 
-export const LazyImage = ({ image, ...imgProps }: Props): JSX.Element => {
+export const LazyImage = ({ src, ...imgProps }: Props): JSX.Element => {
     const node = useRef<HTMLImageElement>(null);
-    const [src, setSrc] = useState(
+    const [currentSrc, setSrc] = useState(
         "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB2ZXJzaW9uPSIxLjEiLz4="
       );
 
@@ -23,7 +23,7 @@ export const LazyImage = ({ image, ...imgProps }: Props): JSX.Element => {
                         return;
                       }
               
-                      setSrc(image);
+                      setSrc(currentSrc);
                     });
                   });
 
@@ -39,7 +39,7 @@ export const LazyImage = ({ image, ...imgProps }: Props): JSX.Element => {
                 ref={node}
                 width={320}
                 height="auto"
-                src={src}
+                src={currentSrc}
                 className="rounded bg-gray-200"
                 {...imgProps}
             />
